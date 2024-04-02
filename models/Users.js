@@ -3,7 +3,7 @@ import Joi from "joi";
 import { handleSaveError, runValidateAtUpdate } from "./hooks.js";
 
 const emailRegexp = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-const subscriptionList = ["starter", "pro", "business"];
+const profileList = ["manager", "brand", "affiliate"];
 
 const userSchema = new Schema(
   {
@@ -18,10 +18,10 @@ const userSchema = new Schema(
       required: [true, "Email is required"],
       unique: true,
     },
-    subscription: {
+    profile: {
       type: String,
-      enum: subscriptionList,
-      default: "starter",
+      enum: profileList,
+      default: "manager",
     },
     token: String,
 
@@ -47,7 +47,7 @@ userSchema.post("findOneAndUpdate", handleSaveError);
 export const userRegisterSchema = Joi.object({
   password: Joi.string().min(6).required(),
   email: Joi.string().pattern(emailRegexp).required(),
-  subscription: Joi.string().valid(...subscriptionList),
+  profile: Joi.string().valid(...profileList),
 });
 
 export const userLoginSchema = Joi.object({

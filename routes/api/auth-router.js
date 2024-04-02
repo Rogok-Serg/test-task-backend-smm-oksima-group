@@ -11,8 +11,8 @@ const userloginValidate = validateBody(userSchemas.userLoginSchema);
 const userEmailValidate = validateBody(userSchemas.userEmailSchema);
 
 authRouter.post("/register", userRegisterValidate, authController.register);
-// authRouter.get("/verify/:verificationToken", authController.verify);
-// authRouter.post("/verify", userEmailValidate, authController.resendVerifyEmail);
+authRouter.get("/verify/:verificationToken", authController.verify);
+authRouter.post("/verify", userEmailValidate, authController.resendVerifyEmail);
 authRouter.post("/login", userloginValidate, authController.login);
 authRouter.get("/current", authenticate, authController.getCurrent);
 authRouter.post("/logout", authenticate, authController.logout);
@@ -22,7 +22,7 @@ authRouter.patch(
   upload.single("avatarURL"),
   authController.updateAvatar
 );
-authRouter.post("/password/forgot", authController.passwordForgot);
-authRouter.post("/password/reset", authController.passwordReset);
+// authRouter.post("/password/forgot", authController.passwordForgot);
+// authRouter.post("/password/reset", authController.passwordReset);
 
 export default authRouter;

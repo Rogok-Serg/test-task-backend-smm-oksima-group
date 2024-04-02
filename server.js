@@ -1,5 +1,3 @@
-// test-platform
-// Of7vNW8PBCPh3j4x
 import mongoose from "mongoose";
 import app from "./app.js";
 

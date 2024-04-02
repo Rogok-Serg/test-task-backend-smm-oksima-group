@@ -37,7 +37,7 @@ describe("test login route", () => {
     expect(body.user.email).toBe(loginData.email);
 
     expect(body.token).toBe(user.token);
-    expect(body.user.subscription).toBe(user.subscription);
+    expect(body.user.profile).toBe(user.profile);
     expect(user.email).toBe(loginData.email);
   });
 });

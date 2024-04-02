@@ -14,7 +14,7 @@ const avatarDir = path.resolve("public", "avatars");
 
 const register = async (req, res) => {
   const { email, password } = req.body;
-  const user = await User.findOne({ email });
+  const user = await User.findOne(email);
   if (user) {
     throw HttpError(409, "Email in use");
   }
@@ -37,7 +37,7 @@ const register = async (req, res) => {
 
   res.status(201).json({
     email: newUser.email,
-    subscription: newUser.subscription,
+    profile: newUser.profile,
   });
 };
 
@@ -98,16 +98,16 @@ const login = async (req, res) => {
     token,
     user: {
       email: user.email,
-      subscription: user.subscription,
+      profile: user.profile,
     },
   });
 };
 
 const getCurrent = (req, res) => {
-  const { email, subscription } = req.user;
+  const { email, profile } = req.user;
   res.status(200).json({
     email,
-    subscription,
+    profile,
   });
 };
 const logout = async (req, res) => {
@@ -132,12 +132,12 @@ const updateAvatar = async (req, res) => {
   });
 };
 
-const passwordForgot = async (req, res) => {
-  const { email } = req.body;
-  const hashPassword = await bcrypt.hash(password, 10);
-  const hash = `${hashPassword}${email}${JWT_SECRET}`;
-  const link = `${BASE_URL}/reset-password/${hash}`;
-};
+// const passwordForgot = async (req, res) => {
+//   const { email } = req.body;
+//   const hashPassword = await bcrypt.hash(password, 10);
+//   const hash = `${hashPassword}${email}${JWT_SECRET}`;
+//   const link = `${BASE_URL}/reset-password/${hash}`;
+// };
 
 export default {
   register: ctrlWrapper(register),
